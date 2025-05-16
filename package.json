@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "setup": "npm install && shx cp .env.example .env && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon .\\app.js"
   },
@@ -16,6 +17,7 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "shx": "^0.4.0"
   }
 }
