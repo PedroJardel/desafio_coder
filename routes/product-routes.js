@@ -1,15 +1,7 @@
 import express from 'express'
-import path from 'path';
-import { fileURLToPath } from 'url';
-import ProductManager from '../src/models/ProductManager.js';
+import { productManager } from '../src/providers/Manager.js';
 
 const router = express.Router();
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const productsFilePath = path.join(__dirname, '../products.json');
-
-const productManager = new ProductManager(productsFilePath);
 
 router.get('/', async (req, res) => {
     try {
@@ -18,7 +10,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Error retrieving products' });
     }
-
 });
 
 router.get('/:id', async (req, res) => {

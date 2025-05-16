@@ -22,7 +22,13 @@ export default class ProductManager {
 
     async getProductById(id) {
         const products = await this.getAllProducts();
-        return products.find(product => product.id === id);
+        const product = products.find(product => product.id === id);
+
+        if (!product) {
+            throw new Error(`This product not Exists: ${id}`)
+        };
+
+        return product
     }
 
     async addProduct(productData) {
@@ -34,7 +40,7 @@ export default class ProductManager {
             productData.status ? productData.status : true,
             productData.stock,
             productData.category,
-            productData.thumbnail ?  productData.thumbnail : null,
+            productData.thumbnail ? productData.thumbnail : null,
         );
         newProduct.setId(products.length + 1);
         newProduct.setCode();
