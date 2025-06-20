@@ -1,5 +1,5 @@
 import fs from 'fs';
-import Product from './entities/Product.js';
+import Product from './entities/product.model.js';
 
 export default class ProductManager {
     constructor(filePath) {

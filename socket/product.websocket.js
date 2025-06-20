@@ -1,24 +1,26 @@
 import { Server } from 'socket.io';
-import { productManager } from '../src/providers/Manager.js';
+import ProductService from '../src/Services/products.service.js';
 
 export const setupSocket = (httpServer) => {
     const io = new Server(httpServer);
 
     io.on('connection', async (socket) => {
         console.log('Novo cliente conectado:', socket.id);
-        const products = await productManager.getAllProducts();
-        io.emit('products', products);
+        // const products = await ProductService.getAll();
+        // io.emit('products', products);
 
         socket.on('product', async (dataProduct) => {
-            await productManager.addProduct(dataProduct);
-            const products = await productManager.getAllProducts();
-            io.emit('products', products);
+            dataProduct.price = parseFloat(dataProduct.price);
+            dataProduct.stock = parseInt(dataProduct.stock);
+            await ProductService.create(dataProduct);
+            // const products = await ProductService.getAll();
+            // io.emit('products', products);
         });
 
         socket.on('deletedProduct', async (id) => {
-            await productManager.deleteProduct(id);
-            const products = await productManager.getAllProducts();
-            io.emit('products', products);
+            await ProductService.delete(id);
+            // const products = await ProductService.getAll();
+            // io.emit('products', products);
         });
 
         socket.on('disconnect', () => {

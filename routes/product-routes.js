@@ -1,35 +1,17 @@
-import express from 'express'
-import { productManager } from '../src/providers/Manager.js';
+import express from 'express';
+import ProductController from '../src/Controllers/products.controller.js';
+import GetByIdRequest from '../src/Requests/Products/GetByIdRequest.js'
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    try {
-        const products = await productManager.getAllProducts();
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).json({ error: 'Error retrieving products' });
-    }
-});
+router.get('/', ProductController.getAll);
 
-router.get('/:id', async (req, res) => {
-    const product = await productManager.getProductById(parseInt(req.params.id));
-    product ? res.json(product) : res.status(404).json({ error: 'Product not found' });
-});
+router.get('/:id', GetByIdRequest.validate(), ProductController.getProductById);
 
-router.post('/', async (req, res) => {
-    const newProduct = await productManager.addProduct(req.body);
-    res.status(201).json(newProduct);
-});
+router.post('/', ProductController.addProduct);
 
-router.put('/:id', async (req, res) => {
-    const updatedProduct = await productManager.updateProduct(parseInt(req.params.id), req.body);
-    updatedProduct ? res.json(updatedProduct) : res.status(404).json({ error: 'Product not found' });
-});
+router.put('/:id',GetByIdRequest.validate(), ProductController.updateProduct);
 
-router.delete('/:id', async (req, res) => {
-    const remainingProducts = await productManager.deleteProduct(parseInt(req.params.id));
-    res.json(remainingProducts);
-});
+router.delete('/:id', GetByIdRequest.validate(), ProductController.deleteProduct);
 
 export default router;
