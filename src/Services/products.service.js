@@ -19,7 +19,6 @@ class ProductService {
         }
 
         const products = await productModel.paginate({}, options);
-        console.log(products.docs)
         return products;
     }
 
