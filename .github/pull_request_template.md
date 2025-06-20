@@ -1,5 +1,3 @@
-# 📌 Pull Request
-
 ## 📄 Descrição
 Descreva brevemente o que foi implementado, alterado ou corrigido.
 
