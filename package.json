@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "npm install && shx cp .env.example .env && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon .\\app.js"
+    "start:dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,9 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
+    "express-validator": "^7.2.1",
+    "mongoose": "^8.16.0",
+    "mongoose-paginate-v2": "^1.9.1",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {

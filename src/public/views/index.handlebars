@@ -1,39 +1,105 @@
 <main class="container">
-    <h2>Cadastro de Produtos</h2>
-    <form class="form-create-product" id="myForm">
-        <input type="text" name="title" id="title" placeholder="Digite o nome do produto" required>
-        <textarea type="text" name="description" id="description" placeholder="Digite a descrição do produto"
-            rows="5" cols="33" required></textarea>
-        <div class="row">
-            <input type="number" name="stock" id="stock" placeholder="Digite a quantidade do produto"
-                required>
-            <select name="category" id="category" required>
-                <option value="">Selecione uma categoria</option>
-                <option value="Hardware">Hardware</option>
-                <option value="Periféricos">Periféricos</option>
-                <option value="Computadores">Computadores</option>
-                <option value="Consoles">Consoles</option>
-                <option value="Geek">Geek</option>
-                <option value="Eletrodomesticos">Eletrodomésticos</option>
-                <option value="Eletronicos">Eletrônicos</option>
-                <option value="Tv">TV</option>
-            </select>
-            <input type="text" name="price" id="price" placeholder="1.345,56" required>
-            <button class="btn-submit" type="submit">Cadastrar</button>
-        </div>
-    </form>
-    <h2 class="table-title">Listagem de Produtos</h2>
-    <table class="table" id="products">
-        <thead>
-            <tr>
-                <th scope="col" class="table-col-code">Código</th>
-                <th scope="col" class="table-col-title">Nome</th>
-                <th scope="col" class="table-col-description">Descrição</th>
-                <th scope="col" class="table-col-category">Categoria</th>
-                <th scope="col" class="table-col-stock">Quantidade</th>
-                <th scope="col" class="table-col-price">Preço</th>
-                <th scope="col" class="table-col-actions">Ações</th>
-            </tr>
-        </thead>
-    </table>
+  <h2>Cadastro de Produtos</h2>
+  <form class="form-create-product" id="myForm">
+    <input
+      type="text"
+      name="title"
+      id="title"
+      placeholder="Digite o nome do produto"
+      required
+    />
+    <textarea
+      type="text"
+      name="description"
+      id="description"
+      placeholder="Digite a descrição do produto"
+      rows="5"
+      cols="33"
+      required
+    ></textarea>
+    <div class="row">
+      <input
+        type="number"
+        name="stock"
+        id="stock"
+        placeholder="Digite a quantidade do produto"
+        required
+      />
+      <select name="category" id="category" required>
+        <option value="">Selecione uma categoria</option>
+        <option value="Hardware">Hardware</option>
+        <option value="Periféricos">Periféricos</option>
+        <option value="Computadores">Computadores</option>
+        <option value="Consoles">Consoles</option>
+        <option value="Geek">Geek</option>
+        <option value="Eletrodomesticos">Eletrodomésticos</option>
+        <option value="Eletronicos">Eletrônicos</option>
+        <option value="Tv">TV</option>
+      </select>
+      <input
+        type="text"
+        name="price"
+        id="price"
+        placeholder="1.345,56"
+        onkeyup="formatPrice(this)"
+        required
+      />
+      <button class="btn-submit" type="submit">Cadastrar</button>
+    </div>
+  </form>
+  <section class="filter">
+    <h2 class="filter-title">Filtros</h2>
+    <div class="row">
+      <select name="orderBy" id="orderBy" required>
+        <option value="">Ordernar Por</option>
+        <option value="lowest_price">Menor Preço</option>
+        <option value="highest_price">Maior Preço</option>
+        <option value="lowest_title">A-Z</option>
+        <option value="highest_title">Z-A</option>
+      </select>
+      <select name="limit" id="limit" required>
+        <option value="">Itens por página</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+      </select>
+      <button class="btn-search" type="button" id="btnSearch" onclick="searchParams(event)">Buscar</button>
+    </div>
+  </section>
+  <h2 class="table-title">Listagem de Produtos</h2>
+  <table class="table" id="products">
+    <thead>
+      <tr>
+        <th scope="col" class="table-col-code">Código</th>
+        <th scope="col" class="table-col-title">Nome</th>
+        <th scope="col" class="table-col-description">Descrição</th>
+        <th scope="col" class="table-col-category">Categoria</th>
+        <th scope="col" class="table-col-stock">Quantidade</th>
+        <th scope="col" class="table-col-price">Preço</th>
+        <th scope="col" class="table-col-actions">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+        <tr class="table-item">
+          <th class="item-code" scope="row">{{_id}}</th>
+          <td class="item-title">{{title}}</td>
+          <td class="item-description">{{description}}</td>
+          <td class="item-category">{{category}}</td>
+          <td class="item-stock">{{stock}}</td>
+          <td class="item-price">R${{price}}</td>
+          <td class="item-actions">
+            <button
+              type="button"
+              class="btn-delete-product"
+              data-id="{{_id}}"
+              onclick="deleteProduct(this)"
+            >
+              <i class="fa-solid fa-trash fa-2xl"></i>
+            </button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </main>
